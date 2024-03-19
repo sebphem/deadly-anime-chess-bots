@@ -5,3 +5,5 @@ __pycache__
 env
 gensim_models
 chess-engines/seb-cli-chess/seb_positions.txt
+Graphviz-10.0.1-win64
+*.png

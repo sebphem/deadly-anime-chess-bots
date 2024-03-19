@@ -1,6 +1,7 @@
 
 import numpy as np
 from PIL import Image
+import os.path
 import torch
 import torch.nn as nn
 from torchvision import transforms
@@ -26,16 +27,15 @@ class ImageCompressor(nn.Module):
 
 def compress_image():
     imgToTensor = transforms.ToTensor()
-    tensorToimg = transforms.ToPILImage()
     device ='cpu'
-    tp_ff = ImageCompressor().to(device)
-    imageData = imgToTensor(Image.open("C:\\Users\\sebas\\Documents\\gojo_satoru\\jjk_images\\S1_(2)\\frame1248.png"))
-    new_image = tp_ff(imageData)
-    print('image data: ', new_image.shape)
+    compressor = ImageCompressor().to(device)
+    imageData = imgToTensor(Image.open("%s/video_processing/jjk_images/S1_(2)/frame1248.png" % os.path.dirname(__file__)))
+    new_image = compressor(imageData)
+    print('image data: ', len(new_image))
     # tensorToimg(new_image).show()
     print(new_image)
 
 
 if __name__ == "__main__":
-    print("Thumubnail training")
+    print("Example ")
     compress_image()

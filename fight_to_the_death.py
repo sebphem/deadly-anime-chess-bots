@@ -1,3 +1,5 @@
+#for making inital ideas about battle
+#TODO move to junkyard after salvaging pieces for testing/recording
 import chess
 import chess.pgn
 from cnn import ImageCompressor
@@ -8,6 +10,7 @@ import random
 from tqdm import tqdm
 from stockfish import Stockfish
 from matplotlib import pyplot as plt
+import os.path
 
 ########################################
 import gensim
@@ -16,11 +19,11 @@ from gensim.models import Word2Vec
 from nltk.tokenize import word_tokenize
 import nltk
 nltk.download('punkt')
-model = Word2Vec.load('./gensim_models/chess_model_2.bin')
+model = Word2Vec.load('%s/gensim_models/chess_model_2.bin' % os.path.dirname(__file__))
 ########################################
 
 ########################################
-stockfish = Stockfish("C:\\Users\\sebas\\Documents\\gojo_satoru\\chess-engines\\stockfish\\stockfish-windows-x86-64-avx2.exe")
+stockfish = Stockfish("%s/chess-engines/stockfish/stockfish-windows-x86-64-avx2.exe" % os.path.dirname(__file__))
 stockfish.set_elo_rating(3100)
 stockfish.get_fen_position()
 ########################################
@@ -31,11 +34,11 @@ tensorToimg = transforms.ToPILImage()
 device ='cpu'
 tp_ff = ImageCompressor().to(device)
 
-fighter_1 = Image.open("C:\\Users\\sebas\\Documents\\gojo_satoru\\jjk_images\\S1_(2)\\frame1248.png")
+fighter_1 = Image.open("%s/video_processing/jjk_images/S1_(2)/frame1248.png" % os.path.dirname(__file__))
 imageData = imgToTensor(fighter_1)
 fighter_1_vec = unitvec(np.array(tp_ff(imageData)))
 
-fighter_2 = Image.open("C:\\Users\\sebas\\Documents\\gojo_satoru\\jjk_images\\S1_(5)\\frame11962.png")
+fighter_2 = Image.open("%s/video_processing/jjk_images/S1_(5)/frame11962.png" % os.path.dirname(__file__))
 imageData = imgToTensor(fighter_2)
 fighter_2_vec = unitvec(np.array(tp_ff(imageData)))
 print('matchup: fighter1\n',fighter_1_vec,'\nfighter2\n',fighter_2_vec)
